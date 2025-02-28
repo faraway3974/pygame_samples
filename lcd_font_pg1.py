@@ -1,93 +1,13 @@
 # handmade LCD font for pygame
 # 5x7ドットマトリクス
 
-# from math import log
+from math import log
 import pygame
 from pygame.locals import Rect
 
 
-LCD_0 = (0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-1, 0, 1, 0, 1, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-)
-LCD_1 = (0, 1, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-1, 1, 1, 1, 1, 
-)
-LCD_2 = (0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-0, 0, 0, 0, 1, 
-0, 0, 0, 1, 0, 
-0, 0, 1, 0, 0, 
-0, 1, 0, 0, 0, 
-1, 1, 1, 1, 1, 
-)
-LCD_3 = (0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-0, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-0, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-)
-LCD_4 = (0, 0, 1, 0, 0, 
-0, 1, 1, 0, 0, 
-1, 0, 1, 0, 0, 
-1, 0, 1, 0, 0, 
-1, 1, 1, 1, 1, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-)
-LCD_5 = (1, 1, 1, 1, 1, 
-1, 0, 0, 0, 0, 
-1, 0, 0, 0, 0, 
-0, 1, 1, 1, 0, 
-0, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-)
-LCD_6 = (0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 0, 
-1, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-)
-LCD_7 = (1, 1, 1, 1, 1, 
-0, 0, 0, 0, 1, 
-0, 0, 0, 1, 0, 
-0, 0, 0, 1, 0, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-0, 0, 1, 0, 0, 
-)
-LCD_8 = (0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-)
-LCD_9 = (0, 1, 1, 1, 0, 
-1, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 1, 
-0, 0, 0, 0, 1, 
-1, 0, 0, 0, 1, 
-0, 1, 1, 1, 0, 
-)
-
-LCD_font_styles = (LCD_0, LCD_1, LCD_2, LCD_3, LCD_4, LCD_5, LCD_6, LCD_7, LCD_8, LCD_9)
+with open("fonts/font.txt", encoding="utf-8") as f:
+    LCD_font_styles = f.read().split('\n')
 
 DARK_GRAY = (40, 40, 40)
 GRAY = (80, 80, 80)
@@ -123,7 +43,7 @@ class LCD_font():
         i = 0
         for y in range(7):
             for x in range(5):
-                if LCD_font_styles[int(code)][i] == 1:
+                if LCD_font_styles[code * 7 + y][x] == "1":
                     color = self.COLOR_ON
                 else:
                     color = self.COLOR_OFF
@@ -135,3 +55,21 @@ class LCD_font():
                 # ドットを描く
                 pygame.draw.rect(self.screen, color, Rect(org1[0], org1[1], block_size, block_size))
                 i += 1
+
+    def disp_num2(self, rjust=4, zfil=False, num=1234, base=16):
+        # numをrjust桁で右詰め表示する。桁あふれが起きると、右にずれていく。
+        # zfil==Trueの時、上位桁をゼロで埋める。Falseの場合は、ブランク表示。
+        if num <= 0:
+            num = 1
+        num_cols = int(log(num, base)) + 1
+        if num_cols > rjust:
+            rjust = num_cols
+        for disp_col in range(rjust):
+            col = disp_col + num_cols - rjust
+            if col >= 0:
+                self.update_col(col=disp_col, num=num // (base ** (num_cols - col - 1)), base=base)
+            else:
+                if zfil is True:
+                    self.update_col(col=disp_col, num=0)
+                else:
+                    self.update_col(col=disp_col, blank=True)

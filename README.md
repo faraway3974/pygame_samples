@@ -8,11 +8,8 @@
      - Step4
  ![画面録画 2025-02-28 193832.gif](videos/画面録画-2025-02-28-193832.gif)
  - demo_LCD_font.py: 5x7のLCDフォント、完成版。
-
  - demo_freetype.py: pygame.freetypeでテキスト表示。（新しい方式）
  - demo_freetype.py: pygame.fontでテキスト表示。（古い方式）
  - demo_openmoji.py: オープンソースの絵文字、openmojiのデモ。キー操作のデモ。
  - seven_seg_pg.py: Seven_segクラス
  - lcd_font_pg.py: LCD_fontクラス
-
- 確認用

@@ -4,6 +4,7 @@
 from datetime import datetime
 import pygame
 from seven_seg_pg import Seven_seg
+from lcd_font_pg1 import LCD_font
 
 
 DARK_GRAY = (40, 40, 40)
@@ -70,9 +71,12 @@ while running:
         display4.disp_num2(zfil=True, rjust=16, num=count, base=2)
 
         dt_now = datetime.now()
-        time_now = (dt_now.hour * 10000
-                    + dt_now.minute * 100
-                    + dt_now.second)
+        time_now = (dt_now.hour // 10
+                    + dt_now.hour % 10
+                    + dt_now.minute // 10
+                    + dt_now.minute % 10
+                    + dt_now.second // 10
+                    + dt_now.second % 10)
         display5.disp_num2(zfil=True, rjust=6, num=time_now, base=10)
 
         pygame.display.flip()  # update_col

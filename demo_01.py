@@ -8,7 +8,7 @@ screen = pygame.display.set_mode([640, 480])
 pygame.display.set_caption("pygame demo - window title here")
 
 running = True
-x1, y1 = 0, 2
+x1, y1 = 0, 0
 
 # infinite loop top ----
 while running:
@@ -36,6 +36,9 @@ while running:
     x1 += 1
     if x1 > 4:
         x1 = 0
+        y1 += 1
+        if y1 > 6:
+            y1 = 0
 
     pygame.display.flip()  # update
     clock.tick(5)  # FPS, Frame Per Second
