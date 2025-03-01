@@ -13,7 +13,7 @@ WHITE = (250, 250, 250)
 pygame.init()
 
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode([400, 320])
+screen = pygame.display.set_mode([640, 320])
 pygame.display.set_caption("Clock and Timer")
 screen.fill(DARK_GRAY)
 
@@ -24,16 +24,24 @@ display1.init_row(X_ORG=1, Y_ORG=1, COL_INTV=6)
 running = True
 while running:
     dt_now = datetime.now()
-    code = int(dt_now.hour // 10
-               + dt_now.hour % 10
-               + dt_now.minute // 10
-               + dt_now.minute % 10
-               + dt_now.second // 10
-               + dt_now.second % 10)
-    display1.update_col(col=0, code=code)
+    display1.update_col(col=0, code=ord(str(dt_now.hour // 10)))
+    display1.update_col(col=1, code=ord(str(dt_now.hour % 10)))
+    display1.update_col(col=2, code=ord(':'))
+    display1.update_col(col=3, code=ord(str(dt_now.minute // 10)))
+    display1.update_col(col=4, code=ord(str(dt_now.minute % 10)))
+    display1.update_col(col=5, code=ord(':'))
+    display1.update_col(col=6, code=ord(str(dt_now.second // 10)))
+    display1.update_col(col=7, code=ord(str(dt_now.second % 10)))
 
     pygame.display.update()
     clock.tick(20)
     screen.fill(DARK_GRAY)
+
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+                running = False
+        if not running:
+            break
 
 pygame.quit()
