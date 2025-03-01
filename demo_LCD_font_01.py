@@ -14,7 +14,7 @@ CYAN = (120, 120, 250)
 YELLOW = (250, 250, 20)
 WHITE = (250, 250, 250)
 
-WINDOW_WIDTH = 960
+WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 240
 
 pygame.init()
@@ -31,8 +31,8 @@ lcd1.init_row(X_ORG=8, Y_ORG=8, COL_INTV=6)
 
 
 def LCD_display(x, y):
-    code = int((x / 8) % 96)
-    text1, rect1 = font1.render(str(code), WHITE)
+    code = int((x / 8) % 128)
+    text1, rect1 = font1.render(str(hex(code)), WHITE)
     rect1.center = (x, y)
     screen.blit(text1, rect1)
     # LCD sim
@@ -40,7 +40,7 @@ def LCD_display(x, y):
 
 
 def infinite_loop():
-    x = 5
+    x = 256
     y = WINDOW_HEIGHT * 0.5
 
     x_change = 0
