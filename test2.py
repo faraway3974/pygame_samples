@@ -1,6 +1,8 @@
 from datetime import datetime
 import pygame
-from lcd_font_pg1 import LCD_font
+from lcd_font_pg1 import LCD_font as LCD_font_pg
+from lcd_font_mc1 import LCD_font as LCD_font_mc
+
 
 DARK_GRAY = (40, 40, 40)
 GRAY = (80, 80, 80)
@@ -17,12 +19,12 @@ screen = pygame.display.set_mode([640, 320])
 pygame.display.set_caption("Clock and Timer")
 screen.fill(DARK_GRAY)
 
-display1 = LCD_font(screen)
-display1.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=GREEN, COLOR_OFF=GRAY)
+display1 = LCD_font_mc(screen)
+display1.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY)
 display1.init_row(X_ORG=1, Y_ORG=1, COL_INTV=6)
 
-display2 = LCD_font(screen)
-display2.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=YELLOW, COLOR_OFF=GRAY)
+display2 = LCD_font_mc(screen)
+display2.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY)
 display2.init_row(X_ORG=1, Y_ORG=11, COL_INTV=6)
 
 running = True

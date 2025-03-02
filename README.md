@@ -7,6 +7,8 @@
  - demo_LCD_font_01.py: 5x7のLCDフォント制作用。LCD_fontクラス使用。
      - Step4
  ![画面録画-2025-02-28-193832.gif](videos/画面録画-2025-02-28-193832.gif)
+     - Step4-2(ASKIIコード表示)
+ ![画面録画-2025-03-02-085244.gif](videos/画面録画-2025-03-02-085244.gif)
  - demo_LCD_font.py: 5x7のLCDフォント、完成版。
  - demo_freetype.py: pygame.freetypeでテキスト表示。（新しい方式）
  - demo_freetype.py: pygame.fontでテキスト表示。（古い方式）
