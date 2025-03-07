@@ -12,8 +12,8 @@ print(f"param_MCJE loaded for {PLAYER_NAME} at {PLAYER_ORIGIN.x}, {PLAYER_ORIGIN
 ADRS_MCR = "c2cc.mydns.jp"
 # ADRS_MCR = "code2createclub.mydns.jp"
 # PORT_MCR = 14712  # mod
-PORT_MCR = 25575  # plugin server
-
+PORT_MCR = 25575  # plugin server 4711
+ 
 
 # axis parameters
 AXIS_WIDTH = 40  # x, z: -40 .. 0 .. 40

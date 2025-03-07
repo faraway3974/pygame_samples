@@ -13,9 +13,7 @@ WHITE = (250, 250, 250)
 pygame.init
 
 class disp_meg():
-    def __init__(self):
-        text = self
-        text1 = LCD_font(text)
-        text1.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY)
-        text1.init_row(X_ORG=1, Y_ORG=1, COL_INTV=6)
-        text1.update_col()
+    def __init__(self, text):
+        self.text = text
+    
+    def 

@@ -2,7 +2,11 @@ from datetime import datetime
 import pygame
 from lcd_font_pg1 import LCD_font as LCD_font_pg
 from lcd_font_mc1 import LCD_font as LCD_font_mc
-
+from mcje.vec3 import Vec3
+from mcje.minecraft import Minecraft
+import param_MCJE as param
+from param_MCJE import PLAYER_ORIGIN as po
+from time import sleep
 
 DARK_GRAY = (40, 40, 40)
 GRAY = (80, 80, 80)
@@ -20,12 +24,12 @@ pygame.display.set_caption("Clock and Timer")
 screen.fill(DARK_GRAY)
 
 display1 = LCD_font_mc(screen)
-display1.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY)
-display1.init_row(X_ORG=1, Y_ORG=1, COL_INTV=6)
+display1.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY, BLOCK_ON=param.DIAMOND_BLOCK, BLOCK_OFF=param.AIR)
+display1.init_row(X_ORG=1, Y_ORG=1, COL_INTV=6, XMC_ORG=0, YMC_ORG=0)
 
 display2 = LCD_font_mc(screen)
-display2.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY)
-display2.init_row(X_ORG=1, Y_ORG=11, COL_INTV=6)
+display2.init_col(BLOCK_SIZE=9, BLOCK_INTV=10, COLOR_ON=RED, COLOR_OFF=GRAY, BLOCK_ON=param.DIAMOND_BLOCK, BLOCK_OFF=param.AIR)
+display2.init_row(X_ORG=1, Y_ORG=11, COL_INTV=6, XMC_ORG=0, YMC_ORG=-9)
 
 running = True
 while running:
@@ -51,12 +55,9 @@ while running:
     display2.update_col(col=8, code=ord(str(dt_now.day // 10)))
     display2.update_col(col=9, code=ord(str(dt_now.day % 10)))
 
-    
-
     pygame.display.update()
     clock.tick(20)
     screen.fill(DARK_GRAY)
-
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

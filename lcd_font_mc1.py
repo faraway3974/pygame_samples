@@ -29,23 +29,26 @@ WHITE = (250, 250, 250)
 
 
 class LCD_font():
-    def __init__(self, screen, mc):
+    def __init__(self, screen):
         self.screen = screen
-        self.mc = mc
 
-    def init_col(self, BLOCK_SIZE=4, BLOCK_INTV=4, COLOR_ON=WHITE, COLOR_OFF=GRAY):
+    def init_col(self, BLOCK_SIZE=4, BLOCK_INTV=4, COLOR_ON=WHITE, COLOR_OFF=GRAY, BLOCK_ON=param.DIAMOND_BLOCK, BLOCK_OFF=param.AIR):
         # ひと桁、コラムの設定
         # ブロックのサイズと配置間隔をピクセル指定（インターバル）
         self.BLOCK_SIZE = BLOCK_SIZE
         self.BLOCK_INTV = BLOCK_INTV
         # on/offのカラー
         self.COLOR_ON = COLOR_ON
+        self.BLOCK_ON = BLOCK_ON
         self.COLOR_OFF = COLOR_OFF
+        self.BLOCK_OFF = BLOCK_OFF
 
-    def init_row(self, X_ORG=2, Y_ORG=8, COL_INTV=6):  # 表示行の設定
+    def init_row(self, X_ORG=2, Y_ORG=8, COL_INTV=6, XMC_ORG=0, YMC_ORG=0):  # 表示行の設定
         # xy空間での7セグ表示、最上位桁の左下座標をブロック数で指定
         self.X_ORG = X_ORG * self.BLOCK_INTV
+        self.XMC_ORG = XMC_ORG
         self.Y_ORG = Y_ORG * self.BLOCK_INTV
+        self.YMC_ORG = YMC_ORG
         # 各桁のブロック間隔をブロック数で指定（インターバル）
         self.COL_INTV = COL_INTV * self.BLOCK_INTV
 
@@ -57,16 +60,22 @@ class LCD_font():
             for x in range(5):
                 if LCD_font_styles[code * 7 + y][x] == "1":
                     color = self.COLOR_ON
+                    block = self.BLOCK_ON
                 else:
                     color = self.COLOR_OFF
+                    block = self.BLOCK_OFF
                 # 桁の原点
                 x0 = self.X_ORG + self.COL_INTV * col
+                xmc = self.XMC_ORG + 6 * col
                 y0 = self.Y_ORG
+                ymc = self.YMC_ORG
                 # ドットの原点座標
                 org1 = (x0 + x * self.BLOCK_INTV, y0 + y * self.BLOCK_INTV)
+                xmc0 = (xmc + x)
+                ymc0 = (ymc + y -y -y)
                 # ドットを描く
                 pygame.draw.rect(self.screen, color, Rect(org1[0], org1[1], block_size, block_size))
-                self.mc.setBlock(x0 - 40, y0 + 110, 0 , param.GOLD_BLOCK)
+                mc.setBlock(xmc0 -40, ymc0 +120, -20, block)
                 i += 1
 
     def disp_num2(self, rjust=4, zfil=False, num=1234, base=16):
